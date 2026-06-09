@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="settings.css">
+        <link rel="stylesheet" href="popup_lib.css">
+        <link rel="stylesheet" href="../variable.css">
+        <title>Title</title>
+    </head>
+    <body>
+        <settings></settings>
+        
+        <div class="grid row partDivider">
+            <div class="leftPart" theme=light>
+                <div class="settingsList flex column mainValues">
+                    <span class="settingsListOption" type=appearence>• Внешний вид</span>
+                    <span class="settingsListOption" type=save>• Сохранение</span>
+                    <span class="settingsListOption" type=icon>• Пиктограммы</span>
+                    <span class="settingsListOption" type=controls>• Управление</span>
+                    <span class="settingsListOption" type=vars>• Переменные</span>
+                    <span class="settingsListOption">lorem</span>
+                    <!--<span class="settingsListOption">lorem</span>-->
+                </div>
+            </div>
+            <div class="rightPart" theme=dark>
+                
+                <div id="error" class="block flex column mainValues" style="display: none;">
+                    <div class="optionStroke flex row"><p id="errorcode1"></p></div>
+                </div>
+                
+                <div class="block flex column mainValues" id="appearence" style="display: block;">
+                    <h3>Внешний вид</h3>
+                    <div class="optionStroke flex row gapmm">
+                        <span>Тема приложения</span>
+                        <div id="darkThemeButton" class="button"><span>Тёмная</span></div>
+                        <div id="lightThemeButton" class="button"><span>Светлая</span></div>
+                    </div>
+                    
+                    <div class="optionStroke flex row gapmm">
+                        <span>Цветовая схема</span>
+                        <input type="text">
+                    </div>
+                </div>
+                
+                <div class="block flex column mainValues" id="save" style="display: none;">
+                    <h3>Сохранение</h3>
+                    <div class="optionStroke">
+                        <span>Названия файла сохранения:</span>
+                        <input type="text">
+                    </div>
+                    
+                    <div class="optionStroke"><span>Время периода автосохранения</span></div>
+                </div>
+                
+                <div class="block flex column mainValues" id="icon" style="display: none;">
+                    <h3>Пиктограммы</h3>
+                    <div class="optionStroke">
+                        <div class="popupSwitch" pid="zapret">1. Запрещающие знаки ▶</div>
+                        <div class="popup" pid="zapret">gay</div>
+                        
+                        <div class="popupSwitch" pid="warning">2. Предупреждающие знаки ▶</div>
+                        <div class="popup flex column" pid="warning">
+                            <span class="flex row" style="align-items: center;">W01. Пожароопасно. Легковоспламеняющиеся вещества
+                                <img src="../svg/warning/test_W02.svg" alt="Логотип" width="50" height="50"></span>
+                            <span class="flex row" style="align-items: center;">W02. Взрывоопасно
+                                <img src="../svg/warning/test_W02.svg" alt="Логотип" width="50" height="50"></span>
+                        </div>
+                        
+                        <div class="popupSwitch" pid="pred">3. Предписывающие знаки ▶</div>
+                        <div class="popup" pid="pred"></div>
+                        
+                        <div class="popupSwitch" pid="fire">4. Знаки пожарной безопасности ▶</div>
+                        <div class="popup" pid="fire"></div>
+                        
+                        <div class="popupSwitch" pid="evac">5. Эвакуационные знаки ▶</div>
+                        <div class="popup" pid="evac"></div>
+                        
+                        <div class="popupSwitch" pid="med">6. Знаки медицинского и санитарного назначения ▶</div>
+                        <div class="popup" pid="med"></div>
+                        
+                        <div class="popupSwitch" pid="point">7. Указательные знаки ▶</div>
+                        <div class="popup" pid="point"></div>
+                        
+                        <div class="flex row gapmm">
+                            <div class="button">Применить</div>
+                            <div class="button">Сбросить настройки</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="block flex column mainValues" id="controls" style="display: none;">
+                    <h3>Управление</h3>
+                    <div class="optionStroke flex row">
+                        <span>Создать пиктограмму</span>
+                        <input type="text" placeholder="A" id="createicon">
+                        <div class="button">Сбросить</div>
+                    </div>
+                    
+                    <div class="optionStroke flex row">
+                        <span>Выбор инструмента &laquo;Внешняя стена&raquo;</span>
+                        <input type="text" placeholder="A" id="createouterwall">
+                        <div class="button">Сбросить</div>
+                    </div>
+                    
+                    <div class="optionStroke flex row">
+                        <span>Выбор инструмента &laquo;Стена&raquo;</span>
+                        <input type="text" placeholder="A" id="createinnerwall">
+                        <div class="button">Сбросить</div>
+                    </div>
+                </div>
+                
+                <div class="block flex column mainValues" id="vars" style="display: none">
+                    <h3>Переменные</h3>
+                    <span>Изменение начальных переменных, которые устанавливаются при создании нового проекта</span>
+                </div>
+                
+            </div>
+        </div>
+        <script src="settings_script.js"></script>
+        <script src="popup_lib.js"></script>
+    </body>
+</html>
