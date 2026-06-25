@@ -1,6 +1,6 @@
 {
   "name": "evacuation-plan-editor",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.1",
   "description": "Free-to-use application for creating evacuation plans",
   "author": "Kaixotwentytwo",
   "main": "dist/main/index.js",
