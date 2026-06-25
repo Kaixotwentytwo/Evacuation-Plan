@@ -1,0 +1,76 @@
+:root {
+    --mm: 1.2em;
+    --m: calc(var(--mm)/2);
+    --black: #000000;
+    --white: #ffffff;
+    --secondaryColor: #cdcdcd;
+    --bg-color: #e6e6e6;
+    --text-color: #222222;
+    --canvas-color: #bebebe;
+    --canvas-lines: #8c8c8c;
+    --font: 'Franklin Gothic Medium', 'Arial Narrow Bold', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #2b2b2b;
+    --text-color: #ffffff;
+    --secondaryColor: #333333;
+    --canvas-color: #4f4f4f;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex;
+}
+
+.row {
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+}
+
+.column {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+
+.grid {
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 1fr;
+    -ms-grid-rows: auto;
+}
+
+.gapmm {gap: var(--mm)}
+.gapm {gap: var(--m)}
+
+.sans-s {font-family: sans-serif;}
+.pointer {cursor: pointer}
+
+@supports (display: grid) {
+    .display-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+.blackbg {background-color: var(--black)}
+.black {color: var(--black)}
+.whitebg {background-color: var(--white)}
+.white {color: var(--white)}
+.mainbg {background-color: var(--bg-color)}

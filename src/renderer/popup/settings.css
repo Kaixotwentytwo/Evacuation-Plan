@@ -1,0 +1,155 @@
+/* 0+ */
+@media (min-width: 0px) {
+    html {
+        --height: 400px;
+        --bigText: 2em;
+        --mmm: calc(var(--mm)*1.5);
+        --mm: 1.6em;
+        --m: calc(var(--mm)/2);
+        --mainTextFont: sans-serif;
+        --round: 12px;
+        margin: 0;
+        
+        --leftPartColor-Dark: #2f2f2f;
+        --leftPartColor-Light: #b0b0b0;
+        
+        --rightPartColor-Dark: #3c3c3c;
+        --rightPartColor-Light: #e4e4e4;
+        
+        --accentColor: red;
+        --hoverColor: #c85959;
+        --inactivebutton-Light: #d2d2d2;
+        --inactivebutton-Dark: #515151;
+        
+        --black: #161616;
+        --white: #e7e7e7;
+    }
+    
+    body {
+        margin: 0;
+    }
+    
+    .leftPart[theme=dark] {
+        background-color: var(--leftPartColor-Dark);
+        color: var(--white);
+    }
+    .leftPart[theme=light] {
+        background-color: var(--leftPartColor-Light);
+        color: var(--black);
+    }
+    .rightPart[theme=dark] {
+        background-color: var(--rightPartColor-Dark);
+        color: var(--white);
+    }
+    .rightPart[theme=light] {
+        background-color: var(--rightPartColor-Light);
+        color: var(--black);
+    }
+    .rightPart .button {
+        cursor: pointer;
+        border-radius: var(--round);
+        padding: calc(var(--m)*0.8);
+    }
+    .rightPart .button:hover {
+        background-color: var(--hoverColor) !important;
+    }
+    .rightPart[theme=light] .button {
+        background-color: var(--inactivebutton-Light);
+    }
+    .rightPart[theme=dark] .button {
+        background-color: var(--inactivebutton-Dark);
+    }
+    .button[activeButton] {
+        background-color: var(--accentColor) !important;
+    }
+
+    .leftPart {
+        background-color: gold;
+        width: 100%;
+        height: calc(var(--height)/3);
+        grid-area: A;
+    }
+    .rightPart {
+        background-color: aquamarine;
+        width: 100%;
+        min-height: var(--height);
+        grid-area: B;
+    }
+
+    .partDivider {
+        display: grid;
+        display: -moz-grid;
+        display: -ms-grid;
+        display: -o-grid;
+        grid-template-areas:
+            "B"
+            "A";
+        height: auto;
+        max-height: 1500px;
+    }
+}
+
+/*более 750*/
+@media (min-width: 750px) {
+    html {
+        --height: 600px;
+    }
+    
+    .partDivider {
+        display: grid;
+        display: -moz-grid;
+        display: -ms-grid;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 1fr;
+        height: fit-content;
+        min-height: min-content;
+        max-height: max-content;
+        grid-template-areas: none;
+    }
+    .leftPart {
+        background-color: aqua;
+        width: 100%;
+        height: var(--height);
+        grid-area: unset;
+    }
+    .rightPart {
+        background-color: aquamarine;
+        width: 100%;
+        min-height: var(--height);
+        height: fit-content;
+        max-height: max-content;
+        grid-area: unset;
+    }
+}
+
+.block {
+    display: none;
+    height: fit-content;
+    /*max-height: max-content;*/
+}
+
+.mainValues {
+    padding: var(--mm);
+    font-family: var(--mainTextFont);
+    font-size: var(--mm);
+}
+
+.settingsList > span {
+    cursor: pointer;
+    user-select: none;
+    transition: .15s cubic-bezier(0.19, 1, 0.22, 1);
+    transform-origin: bottom left;
+}
+
+.settingsList > span:hover {
+    transform: scale(1.2);
+}
+
+.settingsList > span[chosen] {
+    transform: scale(1.2);
+    background-color: var(--accentColor);
+}
+
+.optionStroke {
+    align-items: center;
+}

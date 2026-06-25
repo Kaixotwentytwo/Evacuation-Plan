@@ -1,0 +1,149 @@
+:root {
+    --propertiesWidth: 200px;
+    --toolPanelWidth: 80px;
+    --toolPanelGap: calc(var(--toolPanelWidth)*0.1);
+}
+
+body {
+    transition: background-color 0.3s, color 0.3s;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.test {
+    background: red;
+    width: 50px;
+    height: 50px;
+}
+
+.title {
+    color: var(--text-color);
+}
+
+.grid-pattern-bg[class="lower-canvas"] {
+  /* Задаем фиксированный размер одной ячейки сетки */
+  background-size: 10mm 10mm;
+  
+  /* Рисуем горизонтальные и вертикальные линии толщиной в 1px */
+  background-image: 
+    linear-gradient(to right, var(--canvas-lines) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--canvas-lines) 1px, transparent 1px);
+    
+  /* Белый фон под сеткой */
+  background-color: var(--canvas-color); 
+}
+
+.canvas-container {
+  background: linear-gradient(to right, var(--canvas-lines) 1px, transparent 1px),
+              linear-gradient(to bottom, var(--canvas-lines) 1px, transparent 1px);
+  background-color: var(--canvas-color);
+  background-size: 20px 20px; /* размер клетки */
+}
+
+/* Убираем фон самих canvas */
+.canvas-container canvas {
+  background: transparent !important;
+}
+
+
+.windowsMenu {
+    background-color: cadetblue;
+    padding: var(--m);
+}
+
+.windowsMenuButton {
+    background-color: #b0cfcf;
+    padding: var(--m);
+    border-radius: 6px;
+    min-height: min-content;
+    height: fit-content;
+}
+
+.centerNotification {
+    position: absolute;
+    visibility: hidden;
+    z-index: -100;
+}
+#wrapper {
+    /*left: calc(var(--toolPanelWidth) + (var(--toolPanelGap)) * 2);*/
+    top: 0;
+    position: relative;
+    width: 100vw;
+    min-width: fit-content;
+    max-width: max-content;
+    
+    min-height: fit-content;
+    max-height: max-content;
+    height: 100vh;
+}
+
+#fabricCanvas {
+    width: 100vw;
+    height: 100vh;
+    min-width: 400px;
+    min-height: 300px;
+    z-index: 0;
+}
+
+#toolPanel {
+    z-index: 25;
+    background: var(--secondaryColor);
+    
+    width: var(--toolPanelWidth);
+    min-width: 16px;
+    height: fit-content;
+    min-height: calc(var(--toolPanelWidth) * 1);
+    max-width: var(--toolPanelWidth);
+    /*walls, icons, arrows, peripherials*/
+    padding: var(--toolPanelGap);
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--toolPanelGap);
+}
+
+#properties {
+    background: var(--secondaryColor);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: var(--propertiesWidth);
+    min-width: min-content;
+    height: 100vh;
+    min-height: 50px;
+    resize: horizontal;
+}
+
+#mainBody {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+
+.toolProperties {
+    font-family: var(--font);
+    padding: var(--mm);
+}
+
+.toolProperties .option {
+    gap: var(--mm);
+}

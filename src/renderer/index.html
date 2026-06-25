@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Fabric.js Editor</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/variables.css">
+</head>
+<body>
+  
+  <!--
+  <div class="controls">
+    <label for="imageLoader" class="title">Загрузить изображение: </label>
+    <input type="file" id="imageLoader" accept="image/*" />
+  </div>
+  -->
+    <div id="toolPanel" full>
+        <img src="../../assets/svg/Walls.svg" alt="Внешняя стена" id="outWalls">
+        <img src="../../assets/svg/Walls_mini.svg" alt="">
+        <img src="../../assets/svg/p01.svg" alt="">
+        <img src="../../assets/svg/p01.svg" alt="">
+        <img src="../../assets/svg/p01.svg" alt="">
+        <img src="../../assets/svg/p01.svg" alt="">
+        <img src="../../assets/svg/p01.svg" alt="">
+        <img src="../../assets/svg/p01.svg" alt="">
+    </div>
+    <div id="wrapper">
+        <canvas id="fabricCanvas" class="grid-pattern-bg" height="400" width="300"></canvas>
+    </div>
+    
+    <div id="properties">
+        <div id="resizeBar"></div>
+        <div id="mainBody" class="flex">
+            <div class="toolProperties" id="WallsGroup">
+                <h3>Редактирование свойств:</h3>
+                <h3>Внешняя стена</h3>
+               
+                <div class="option flex row">
+                    <p>Толщина стен</p>
+                    <input type="range" min=8 max=35>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  <!--
+  <div class="export-buttons">
+    <h3>Экспорт:</h3>
+    <button id="exportPNG">Сохранить как PNG</button>
+    <button id="exportJPG">Сохранить как JPG</button>
+    <button id="exportJSON">Сохранить как JSON</button>
+    <button id="exportSVG">Сохранить как SVG</button>
+    <button id="loadJSON">Импортировать сохранение из JSON</button>
+  </div>
+  -->
+</body>
+</html>
