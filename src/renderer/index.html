@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Fabric.js Editor</title>
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <!-- <link rel="stylesheet" href="css/variables.css"> -->
+</head>
+<body>
+  
+  <!--
+  <div class="controls">
+    <label for="imageLoader" class="title">Загрузить изображение: </label>
+    <input type="file" id="imageLoader" accept="image/*" />
+  </div>
+  -->
+    
+    <!-- <div id="clarificationPopup" pid="outwallclar" class="popup notification" animation="opacity"></div> -->
+    <!-- <div pid="outwallclar" class="backdrop popup popupSwitch" animation="opacity"></div> -->
+
+    <!-- <div class="popup notification" pid="gost2018" animation="opacity"><iframe src="" frameborder="0"></iframe></div> -->
+
+    <div id="lowerPanel" class="flex row">
+        <div class="flex column">
+            <div id="gridSizeBlock" class="flex row">
+                <div id="gridSizeButtonLeft" class="gridSizeButton"></div>
+                <span id="gridText">Размер сетки: 10мм</span>
+                <div id="gridSizeButtonRight" class="gridSizeButton"></div>
+            </div>
+            <span id="scaleRatioText">Масштаб 1:100</span>
+        </div>
+
+        <div id="zoomBlock" class="flex column">
+            <div class="flex column">
+                <span id="zoomBlockText">Степерь приближения: 100%</span>
+                <input type="range" name="" value="1" min="0.3" max="7.5" step="0.1" id="zoomInput">
+            </div>
+            
+            <div class="flex row">
+                <div class="button bmarginnn bpadn" id="plusZoomButton">Приблизить</div>
+                <div class="button bmarginnn bpadn" id="resetZoomButton">Сбросить</div>
+                <div class="button bmarginnn bpadn" id="minusZoomButton">Отдалить</div>
+            </div>
+        </div>
+
+        <div id="relativeScaleBlock">
+
+        </div>
+    </div>
+
+    <div class="threeDividerWrapper flex row">
+       <div id="properties">
+            <div id="resizeBar"></div>
+            <div id="mainPropBody" class="flex column">
+                <div class="toolProperties" id="WallsGroup">
+                    <div class="option flex column">
+                        <h3>Редактирование свойств:</h3>
+                        <h3>Внешняя стена</h3>
+                    </div>
+
+                    <div class="clarificationBlock flex row">
+                        <div class="button bmargin bpadm" id="wallClarification" pid="outwallclar">Справка</div>
+                        <img id="wallThickWarn" src="../../assets/svg/interface/warn.svg" alt="*!*" width="36" height="36" title="Нерекомендуемая ширина">
+                    </div>
+
+                    <div class="option flex row aic">
+                        <p>Толщина стен</p>
+                        <input id="outWallHeightRange" type="range" min=1 max=15 step=0.1 value=3>
+                        <!-- <div class="flex column"> -->
+                            <!-- <span>Размер на плане</span> -->
+                            <!-- <input type="text" name="" id="outWallHeightRange_plan" placeholder="10mm" >
+                            <span>=</span>
+                            <span>Реальный размер</span>
+                            <input type="text" name="" id="outWallHeightRange_real" placeholder="50cm"> -->
+                        <!-- </div> -->
+                        <p id="wallHeightmm"><span style="opacity:0.3">0</span>3.0мм</p>
+                    </div>
+                    <div class="option"></div>
+
+                    <div class="option flex row">
+                        <input type="checkbox">
+                        <p>Привязываться к краям стен</p>
+                    </div>
+                </div>
+
+                <hr style="width: calc(100% - var(--mm)*2); border: solid 1px;">
+
+                <div class="toolProperties" id="blank">
+                    <div class="option flex row">
+                        <div class="icon cherker" id="snapToGrid" disabled></div>
+                        <p>Привязываться к сетке при перемещении</p>
+                    </div>
+
+                    <div class="option flex row">
+                        <div class="icon cherker" id="snapToGridSize" disabled></div>
+                        <p>Привязываться к сетке при изменении размера элемента</p>
+                    </div>
+
+                    <div class="option flex row">
+                        <div class="icon cherker" id="snapToGridRotate" disabled></div>
+                        <p>Привязываться к сетке при повороте</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="mainWrapper flex row">
+            <div id="toolPanel" full>
+                <img src="../../assets/svg/Walls.svg" alt="Внешняя стена" title="Внешняя стена" id="outWalls">
+                <img src="../../assets/svg/Walls_mini.svg" alt="Внутренняя стена" title="Внутренняя стена" id="inWalls">
+                <img src="../../assets/svg/Warning/w09.svg" alt="Пиктограммы" title="Пиктограммы" id="icon">
+                <!-- <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt="">
+                <img src="../../assets/svg/p01.svg" alt=""> -->
+            </div>
+
+            <!-- СЕТКА  -->
+            <div id="wrapper">
+                <svg id="grid-svg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <defs>
+                    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <rect 
+                        id="grid-lines" 
+                        width="40" 
+                        height="40" 
+                        fill="none" 
+                        stroke="rgba(0,0,0,0.1)" 
+                        stroke-width="1"
+                        shape-rendering="crispEdges"
+                        style="vector-effect: non-scaling-stroke;"
+                        />
+                    </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+                </svg>
+
+                <canvas id="fabricCanvas" class="grid-pattern-bg" height="400" width="300"></canvas>
+            </div>
+        </div>
+
+        
+    </div>
+  
+  <!--
+  <div class="export-buttons">
+    <h3>Экспорт:</h3>
+    <button id="exportPNG">Сохранить как PNG</button>
+    <button id="exportJPG">Сохранить как JPG</button>
+    <button id="exportJSON">Сохранить как JSON</button>
+    <button id="exportSVG">Сохранить как SVG</button>
+    <button id="loadJSON">Импортировать сохранение из JSON</button>
+  </div>
+  -->
+</body>
+</html>

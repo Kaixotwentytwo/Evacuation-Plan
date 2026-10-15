@@ -1,0 +1,190 @@
+:root {
+    --mmmm: calc(var(--m)*4);
+    --mmm: calc(var(--m)*3);
+    --mm: calc(var(--m)*2);
+    --m: 0.6em;
+    --backdrop-fill: rgba(0, 0, 0, 0.5);
+    --black: #000000;
+    --white: #ffffff;
+    --secondary-color: #cdcdcd;
+    --bg-color: #e6e6e6;
+    --text-color: #222222;
+    --canvas-color: #bebebe;
+    --canvas-lines: #8c8c8c;
+    --border-color: #808080;
+    --accent: #4a90d9;
+    --accent-dark: #357abd;
+    --accent-light: #7ab3f0;
+    --brs: 16px;
+    --font-2: 'Franklin Gothic Medium', 'Arial Narrow Bold', sans-serif;
+    --font-1: system-ui, -apple-system, sans-serif;
+    --mono: monospace;
+    --fz-0: 12px;
+    --fz-1: 16px;
+    --fz-2: 20px;
+    --fz-3: 24px;
+    --fz-4: 32px;
+    --transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    --gost-white: #FFFFFF;
+    --gost-black: #2b2b2c;
+    --gost-green: #007A50;
+    --gost-red: #FD4239;
+    --gost-yellow: #FFD200;
+    --gost-blue: #005195;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #585858;
+    --text-color: #ffffff;
+    --secondary-color: #333333;
+    --canvas-color: #747474;
+    --border-color: #4f4f4f;
+  }
+}
+
+.fz0 {font-size: var(--fz-0);}
+.fz1 {font-size: var(--fz-1);}
+.fz2 {font-size: var(--fz-2);}
+.fz3 {font-size: var(--fz-3);}
+.fz4 {font-size: var(--fz-4);}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.bmarginnn {
+    margin: calc(var(--mm)/3);
+}
+
+.bmarginn {
+    margin: calc(var(--mm)/2);
+}
+
+.bmargin {
+    margin: var(--mm);
+}
+
+.bpadn {
+    padding: calc(var(--m)/2);
+}
+
+.bpadm {
+    padding: calc(var(--m));
+}
+
+.bpadmm {
+    padding: calc(var(--mm));
+}
+
+.notification {
+    --left: calc(50vw - 100px);
+    --top: calc(50vh - 100px);
+
+    min-width: 100px;
+    min-height: 100px;
+    width: 500px;
+    height: fit-content;
+    max-width: fit-content;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border-radius: var(--brs);
+    font-size: var(--fz-2);
+    z-index: 15;
+    position: absolute;
+    top: var(--top);
+    left: var(--left);
+    padding: var(--mm);
+    font-family: var(--font-1);
+    outline: 3px solid var(--gost-white);
+}
+
+.button {
+    /* padding: calc(var(--m)/1); */
+    background-color: var(--accent-dark);
+    border-radius: var(--brs);
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s var(--transition);
+    box-shadow: 0px 3px 0px 0px #ffffff;
+    transform-origin: bottom left;
+}
+
+.button:hover {
+    background-color: var(--accent-light);
+}
+
+.button:active {
+    border-bottom: none;
+    box-shadow: none;
+    translate: -3px 3px;
+}
+
+.aic {align-items: center;}
+.jcc {justify-content: center;}
+
+.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex;
+}
+
+.row {
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    -o-flex-direction: row;
+    flex-direction: row;
+}
+
+.column {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+
+.grid {
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 1fr;
+    -ms-grid-rows: auto;
+}
+
+.gapmm {gap: var(--mm)}
+.gapm {gap: var(--m)}
+
+.sans-s {font-family: sans-serif;}
+.align-left {text-align: left;}
+.lh1-5 {line-height: 1.5ch;}
+.pdfText {line-height: 1.5rem; text-align: left;}
+.pointer {cursor: pointer}
+.brs {border-radius: var(--brs);}
+.math-font {font-family: math;}
+
+.resizable {
+    resize: both !important;
+    overflow: auto !important;
+    min-width: 600px;
+    min-height: 600px;
+    max-width: 95vw;
+    max-height: 95vh;
+}
+
+@supports (display: grid) {
+    .display-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+.blackbg {background-color: var(--black)}
+.black {color: var(--black)}
+.whitebg {background-color: var(--white)}
+.white {color: var(--white)}
+.mainbg {background-color: var(--bg-color)}

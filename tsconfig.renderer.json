@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "./dist/renderer",
+    "rootDir": "./src/renderer",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "ignoreDeprecations": "5.0"
+  },
+  "include": ["src/renderer/**/*.ts", "src/**/*.d.ts"]
+}

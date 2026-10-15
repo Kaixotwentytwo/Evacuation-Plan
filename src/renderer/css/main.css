@@ -1,0 +1,296 @@
+:root {
+    --propertiesWidth: 300px;
+    --toolPanelHeight: 100%;
+    --toolPanelWidth: 80px;
+    --toolPanelGap: calc(80px * 0.1);
+}
+
+body {
+    transition: background-color 0.3s, color 0.3s;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.test {
+    background: red;
+    width: 50px;
+    height: 50px;
+}
+
+.title {
+    color: var(--text-color);
+}
+
+/*
+.grid-pattern-bg[class="lower-canvas"] {
+    --scale: 10mm 10mm;
+    background-size: var(--scale);
+  
+    background-image: 
+    linear-gradient(to right, var(--canvas-lines) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--canvas-lines) 1px, transparent 1px);
+    
+    background-color: var(--canvas-color); 
+}
+*/
+
+/*
+.canvas-container {
+  background: linear-gradient(to right, var(--canvas-lines) 1px, transparent 1px),
+              linear-gradient(to bottom, var(--canvas-lines) 1px, transparent 1px);
+  background-color: var(--canvas-color);
+  background-size: 20px 20px;
+}
+*/
+
+/*
+.canvas-container canvas {
+  background: transparent !important;
+}
+*/
+
+.windowsMenu {
+    background-color: cadetblue;
+    padding: var(--m);
+}
+
+.windowsMenuButton {
+    background-color: #b0cfcf;
+    padding: var(--m);
+    border-radius: 6px;
+    min-height: min-content;
+    height: fit-content;
+}
+
+.centerNotification {
+    position: absolute;
+    visibility: hidden;
+    z-index: -100;
+}
+#wrapper {
+    /*left: calc(var(--toolPanelWidth) + (var(--toolPanelGap)) * 2);*/
+    top: 0;
+    position: relative;
+    width: 100vw;
+    min-width: fit-content;
+    max-width: max-content;
+    
+    min-height: fit-content;
+    max-height: max-content;
+    height: 100vh;
+}
+
+#fabricCanvas {
+    width: 100vw;
+    height: 100vh;
+    min-width: 400px;
+    min-height: 300px;
+    z-index: 0;
+}
+
+#toolPanel {
+    z-index: 3;
+    background: var(--secondary-color);
+    
+    /* width: calc(100vw - var(--propertiesWidth) - var(--m)); */
+    min-width: min-content;
+    width: var(--toolPanelWidth);
+    
+    /* min-height: calc(var(--toolPanelHeight) * 1); */
+    height: fit-content;
+    /* max-height: calc(var(--toolPanelHeight) * 3); */
+    /*walls, icons, arrows, peripherials*/
+    padding: var(--toolPanelGap);
+    
+    position: static;
+    left: 0;
+    top: 0;
+    
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: start;
+    gap: var(--toolPanelGap);
+    flex-wrap: wrap;
+    
+    border-bottom: solid 0.15em var(--border-color);
+}
+
+#toolPanel img {
+    max-width: 120px;
+    min-width: 20px;
+    height: var(--toolPanelWidth);
+    width: auto;
+    aspect-ratio: 1/1;
+}
+
+#resizeBar {
+    width: auto;
+    max-width: 16px;
+    min-width: 4px;
+    aspect-ratio: 4/500;
+    height: 100%;
+    background: var(--border-color);
+    cursor: ew-resize;
+    position: absolute;
+    z-index: 5;
+}
+
+#properties {
+    background: var(--secondary-color);
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-width: var(--propertiesWidth);
+    width: auto;
+    min-width: min-content;
+    height: 100vh;
+    min-height: 50px;
+    resize: horizontal;
+    z-index: 4;
+}
+
+#mainBody {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+
+.toolProperties {
+    font-family: var(--font-1);
+    padding: var(--mm);
+}
+
+.toolProperties .option {
+    gap: var(--mm);
+}
+
+#lowerPanel {
+    gap: var(--mm);
+    position: absolute;
+    z-index: 4;
+    bottom: 0;
+    left: 0;
+    background: var(--secondary-color);
+    border-top: dashed 0.15em var(--border-color);
+    width: calc(100% - var(--propertiesWidth));
+    height: fit-content;
+    align-items: center;
+    font-family: var(--font-1);
+}
+
+#gridSizeBlock {
+    color: var(--text-color);
+    padding: var(--m) 0 var(--m) 0;
+    transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#gridSizeBlock:hover {
+    padding: var(--m) var(--m) var(--m) var(--m);
+}
+
+#gridSizeBlock #gridSizeButtonLeft {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+#gridSizeBlock #gridSizeButtonRight {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+#gridSizeBlock:hover #gridSizeButtonRight, 
+#gridSizeBlock:hover #gridSizeButtonLeft {
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+.gridSizeButton {
+    min-width: 10px;
+    min-height: 10px;
+    aspect-ratio: 1/1;
+    max-width: 16px;
+    max-height: 16px;
+    border-radius: 6px;
+    padding: 4px;
+    background-color: var(--canvas-color);
+    border: solid 1px var(--text-color);
+    position: relative;
+    transition: 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gridSizeButton::after {
+    content: '>';
+    position: absolute;
+    left: 25%; top: 0;
+}
+
+#gridSizeButtonLeft::after {
+    content: '<';
+}
+
+#zoomBlock, #zoomBlock > * {
+    align-items: center;
+    padding: 0;
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#zoomBlock > input {
+    display: none;
+}
+
+#zoomBlock > span:hover {
+    padding: var(--m);
+}
+
+#scaleRatioText {
+    align-self: center;
+}
+
+#wallHeightmm {
+    font-family: var(--mono);
+    font-size: var(--fz-1);
+}
+
+#wallClarification {
+    position: relative;
+    left: calc(var(--mm) * -1);
+}
+
+#wallThickWarn {
+    position: absolute;
+    right: var(--mm);
+    /* top: calc(25% + var(--m)*1); */
+    top: 25%;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.75s var(--transition) 0.2s,
+    visibility 0.2s var(--transition) 0.1s;
+}
+
+.clarificationBlock {
+    position: relative;
+}
+.option p {
+    margin: calc(var(--mm)) 0;
+}
+
+.backdrop[pid=outwallclar] {
+    position: absolute;
+    z-index: 10;
+    background-color: var(--backdrop-fill);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    top: 0;left: 0;
+}
