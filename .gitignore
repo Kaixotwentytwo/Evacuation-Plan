@@ -3,6 +3,7 @@ node_modules/
 
 # Результаты сборки TypeScript / Webpack (папка dist и её содержимое)
 dist/
+
 popup/
 code_backup/
 
