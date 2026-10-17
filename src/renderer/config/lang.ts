@@ -1,6 +1,49 @@
 // ru, en
 
 export const interfaceElements = {
+    OSUI: {
+        file: {
+            self: ['Файл', 'File'],
+            open: ['Открыть', 'Open'],
+            save: ['Сохранить', 'Save'],
+            export: ['Экспортировать', 'Export'],
+            close: ['Закрыть файл', 'Close file'],
+        },
+        window: {
+            self: ['Окно', 'Window'],
+            exit: ['Выход', 'Exit'],
+            minimize: ['Свернуть', 'Minimize'],
+            // close: ['Закрыть приложение', 'Close Application'],
+            // zoom: ['Изменить масштаб', 'Zoom'],
+        },
+        view: {
+            self: ['Вид','View'],
+            fullscreen: ['Полноэкранный режим', 'Toggle full screen'],
+            zoomIn: ['Повысить масштаб', 'Zoom In'],
+            zoomOut: ['Уменьшить масштаб', 'Zoom Out'],
+            actualSize: ['Исходный масштаб', 'Reset Zoom'],
+            appearence: ['Внешний вид', 'Appearance'],
+        },
+        edit: {
+            selectClass: ['Выбрать класс объектов', 'Select Class'],
+            self: ['Правка','Edit'],
+            undo: ['Отменить', 'Undo'],
+            redo: ['Вернуть', 'Redo'],
+            cut: ['Вырезать', 'Cut'],
+            copy: ['Копировать', 'Copy'],
+            duplicate: ['Дублировать', 'Duplicate'],
+            paste: ['Вставить', 'Paste'],
+            delete: ['Удалить', 'Delete'],
+            selectAll: ['Выбрать все', 'Select All'],
+        },
+        help: {
+            guide: ["Руководство", "Guide"],
+            self: ["Справка","Help"],
+            about: ['О программе', 'About Application'],
+            license: ['Лицензия', 'License'],
+            documentation: ['Документация','Documentation'], // with gost
+        },
+    },
     propertiesBlock: {
         editProp: ["Редактирование свойств:", "Properties Editing:"]
     },

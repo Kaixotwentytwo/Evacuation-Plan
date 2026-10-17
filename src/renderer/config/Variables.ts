@@ -62,3 +62,13 @@ export class Variables {
         baseSnapAngle: 15,
     };
 }
+
+export let CommonConfig = new Variables({
+    language: 'ru',
+    devMode: true,
+    maxZoom: 10,
+    showCoordinates: true,
+    showZoom: true,
+    minAngle: 1,
+    baseSnapAngle: 45,
+});

@@ -2,7 +2,7 @@
 name: MainAgent
 description: Help with project creation according to roadmap
 argument-hint: Implement task questioned by the user and answer other questions in chat
-tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'todo']
+tools: [vscode, read, edit, search, web, browser, todo]
 # specify the tools this agent can use. If not set, all enabled tools are allowed.
 ---
 

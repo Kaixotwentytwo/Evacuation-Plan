@@ -1,5 +1,9 @@
-import { contextBridge } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  platform: process.platform
+  platform: process.platform,
+  
+  // Добавляем новые мосты для общения с главным процессом
+  saveKeybinds: (data: Record<string, string>) => ipcRenderer.invoke('save-keybinds', data),
+  loadKeybinds: () => ipcRenderer.invoke('load-keybinds'),
 });

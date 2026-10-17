@@ -1,4 +1,3 @@
-import { prototype } from "node:events";
 import { interfaceElements } from "../../config/lang";
 import Swal from "sweetalert2";
 

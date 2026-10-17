@@ -16,8 +16,8 @@ export class grid {
     static isDragging: boolean = false;
 
     // Константы ограничений размеров виртуального холста
-    static readonly maxWidth = 8000;
-    static readonly maxHeight = 6000;
+    static readonly maxWidth = 4000;
+    static readonly maxHeight = 3000;
     static lastPosX: number = 0;
     static lastPosY: number = 0;
     
