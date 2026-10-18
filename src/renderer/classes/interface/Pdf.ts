@@ -1,77 +1,60 @@
 import { interfaceElements } from "../../config/lang";
 import Swal from "sweetalert2";
 
-enum iconChoise{
-    question = 'question',
+// on 113 add empty pdf
+enum popupIcons {
+    info = 'info',
     error = 'error',
     success = 'success',
-    info = 'info'
-    // add like others icons
+    warning = 'warning',
+    question = 'question'
 }
 
-// on 113 add empty pdf
-
 export class PDF {
-    firstPopup_Title: string | undefined;
-    secondPopup_Title: string | undefined;
-    firstPopup_HTML: string | undefined;
-    documentName: string | undefined;
-    popupIcon: iconChoise | undefined; // first popup
-    openPDFButtonText: string | undefined;
-    cancelPDFButtonText: string | undefined;
-    firstPopup_Backdrop: number | undefined;
-    secondPopup_Backdrop: number | undefined;
-    confirmButtonColor: string | undefined; // first popup
-    cancelButtonColor: string | undefined; // first popup
-    accentColorForText: string | undefined; // first popup
+    // Дефолтные значения (статический объект)
+    static readonly defaults = {
+        firstPopup_Title: "Справка",
+        firstPopup_HTML: "<span>Экземпляр текста.</span>",
+        popupIcon: popupIcons.info,
+        openPDFButtonText: "Открыть PDF",
+        cancelPDFButtonText: "Закрыть",
+        firstPopup_Backdrop: 0.75,
+        secondPopup_Backdrop: 0.85,
+        confirmButtonColor: '#447274',
+        cancelButtonColor: 'rgb(92, 51, 97)',
+    };
 
-    constructor(
-        {
-            title1 = "Справка",
-            title2 = `Просмотр документа ${this.documentName}`,
-            body1 = "<span>Экземпляр текста.</span>",
-            document,
-            icon = iconChoise.info,
-            openPDF = "Открыть PDF",
-            cancelPDF = "Закрыть",
-            backdrop1 = 0.75,
-            backdrop2 = 0.85,
-            confirmColor = '#447274',
-            cancelColor = 'rgb(92, 51, 97)',
-            accentTextColor,
-        }: {
-            title1?: string | undefined;
-            title2?: string | undefined;
-            body1?: string | undefined;
-            document?: string | undefined;
-            icon?: iconChoise | undefined
-            openPDF?: string | undefined;
-            cancelPDF?: string | undefined;
-            backdrop1?: number | undefined;
-            backdrop2?: number | undefined;
-            confirmColor?: string | undefined;
-            cancelColor?: string | undefined;
-            accentTextColor?: string | undefined;
-        } = {}) {
-        this.firstPopup_Title = title1;
-        this.secondPopup_Title = title2;
-        this.firstPopup_HTML = body1;
-        this.documentName = document;
-        this.popupIcon = icon;
-        this.openPDFButtonText = openPDF;
-        this.cancelPDFButtonText = cancelPDF;
-        this.firstPopup_Backdrop = backdrop1;
-        this.secondPopup_Backdrop = backdrop2;
-        this.confirmButtonColor = confirmColor;
-        this.cancelButtonColor = cancelColor;
-        this.accentColorForText = accentTextColor;
+    // Доступные переменные (типизация)
+    firstPopup_Title!: string;
+    secondPopup_Title!: string;
+    firstPopup_HTML!: string;
+    documentName?: string;
+    popupIcon?: popupIcons;
+    openPDFButtonText!: string;
+    cancelPDFButtonText!: string;
+    firstPopup_Backdrop!: number;
+    secondPopup_Backdrop!: number;
+    confirmButtonColor!: string;
+    cancelButtonColor!: string;
+    accentColorForText?: string;
+
+    constructor(init?: Partial<PDF>) {
+        // default
+        Object.assign(this, PDF.defaults);
+        // if user gives 
+        if (init) {Object.assign(this, init);}
+
+        // additional 
+        this.secondPopup_Title = this.secondPopup_Title ?? `Просмотр документа ${this.documentName ?? ''}`;
+        this.popupIcon = this.popupIcon ?? popupIcons.info;
     }
-    // после того как написаны все поля - заменить переменные в методах на эти поля
 
     pathMap = new Map([
         ['34428-2018', '../../assets/document/ГОСТ 34428-2018.pdf#zoom=150'],
         ["34428-2018 9.3.9.8", '../../assets/document/ГОСТ 34428-2018.pdf#page=32&zoom=150']
     ]);
+
+    public static icons = popupIcons;
 
     private getFullPath(fileIDName: string) {
         if (!this.pathMap.has(fileIDName)) // error
@@ -85,7 +68,7 @@ export class PDF {
             title: this.firstPopup_Title,
             customClass: {icon: 'math-font', popup: 'brs', title: 'sans-s', htmlContainer: 'pdfText'},
             html: this.firstPopup_HTML,
-            icon: this.popupIcon,
+            icon: this.popupIcon??PDF.icons.info,
             backdrop: `rgba(0, 0, 0, ${this.firstPopup_Backdrop})`,
             showCancelButton: true,
             confirmButtonText: this.openPDFButtonText,
@@ -157,19 +140,3 @@ export class PDF {
         }
     }
 }
-
-// open popup on click
-// outer wall advice
-document.getElementById('wallClarification')
-?.addEventListener('click', async ()=>{
-    let text = new PDF({
-        title1: "Справка",
-        openPDF: 'Открыть PDF',
-        cancelPDF: 'Закрыть',
-        icon: iconChoise.question,
-        document: "34428-2018 9.3.9.8",
-    });
-    if (text) {
-        // await PDF.openPopupSequence(interfaceElements.GOST_34428_2018_Hint, text);
-    }
-});

@@ -11,6 +11,7 @@ import { grid } from './classes/behavior/Grid';
 import { GOSTColors } from './config/theme';
 import { resizeCanvas, updateProperty, canvas } from './classes/behavior/CanvasBehavior';
 import { Keybind } from './classes/behavior/Keybinds';
+import { PDF } from './classes/interface/Pdf';
 // import { iconsMap } from "./config/icons";
 import { Variables } from './config/Variables';
 let config = new Variables({
@@ -23,6 +24,7 @@ declare module 'fabric' {
   interface CanvasEvents {
     // Указываем имя события и тип данных, которые оно передает
     'app:zoom:changed': Partial<TEvent> & { zoom: number };
+    'app:grid:changed': Partial<TEvent> & { gridSize: number };
   }
 }
 
@@ -47,7 +49,6 @@ declare global {
         // grid
         mmToPx: typeof grid.mmToPx;
         pxToMm: typeof grid.pxToMm;
-        setCanvasZoom: typeof grid.setCanvasZoom;
         changeGridSize: typeof grid.changeGridSize;
         updateSvgGrid: typeof grid.updateSvgGrid;
         switchSnapToGridMove: typeof grid.switchSnapToGridMove;
@@ -57,7 +58,6 @@ declare global {
 
 // global
 (()=>{
-    window.setCanvasZoom = grid.setCanvasZoom;
     window.switchSnapToGridMove = grid.switchSnapToGridMove;
     window.switchSnapToGridSize = grid.switchSnapToGridSize;
     window.changeGridSize = grid.changeGridSize;
@@ -77,7 +77,8 @@ const gridTextElement = document.getElementById("gridText");
 const outWallHeightText = document.getElementById("wallHeightmm");
 
 // start grid
-grid.changeGridSize(canvas, "2mm", gridTextElement??new Element, config.language);
+// grid.changeGridSize(canvas, "2mm", gridTextElement??new Element, config.language);
+grid.changeGridSize(canvas, "2mm");
 
 // INTERFACE ADDEVENTLISTENERS
 (function(){
@@ -87,10 +88,10 @@ grid.changeGridSize(canvas, "2mm", gridTextElement??new Element, config.language
     if (config.language==='en' && outWallClar) outWallClar.innerHTML = IE.clarification_wall[1];
 
     // grid buttons
-    document.getElementById("gridSizeButtonLeft")?.addEventListener("click",
-        ()=>{grid.changeGridSize(canvas, "down", gridTextElement??new Element, config.language);});
-    document.getElementById("gridSizeButtonRight")?.addEventListener("click",
-        ()=>{grid.changeGridSize(canvas, "up", gridTextElement??new Element, config.language);});
+    document.getElementById("gridSizeButtonLeft")?.
+        addEventListener("click", ()=>{grid.changeGridSize(canvas, "down");});
+    document.getElementById("gridSizeButtonRight")?.
+        addEventListener("click", ()=>{grid.changeGridSize(canvas, "up");});
 
     // buttons that spawns elements
     document.getElementById("outWalls")?.addEventListener("click", () => {
@@ -167,6 +168,7 @@ if (svgGrid && canvasContainer) {
   canvasContainer.insertBefore(svgGrid, canvasContainer.firstChild);
 }
 
+// dev things
 (()=>{
     if (config.devMode && config.showCoordinates) {
         const debugEl = document.createElement('div');
@@ -184,6 +186,24 @@ if (svgGrid && canvasContainer) {
         });
     }
 })();
+
+// open popup on click
+// outer wall advice
+document?.getElementById('wallClarification')?.
+addEventListener('click', async ()=>{
+    let text = new PDF({
+        firstPopup_Title: "Справка",
+        openPDFButtonText: 'Открыть PDF',
+        cancelPDFButtonText: 'Закрыть',
+        popupIcon: PDF.icons.info,
+        documentName: "34428-2018 9.3.9.8",
+        firstPopup_HTML: IE.GOST_34428_2018_Hint
+    });
+    if (text) {
+        // await PDF.openPopupSequence(interfaceElements.GOST_34428_2018_Hint, text);
+        await text.openPopupSequence()
+    }
+});
 
 // first time & all the time, window is resized
 resizeCanvas();
