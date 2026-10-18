@@ -13,6 +13,8 @@ export const interfaceElements = {
             self: ['Окно', 'Window'],
             exit: ['Выход', 'Exit'],
             minimize: ['Свернуть', 'Minimize'],
+            reload: ['Перезагрузить', 'Reload'],
+            devTools: ['Открыть инструменты разработчика', 'Open developer tools'],
             // close: ['Закрыть приложение', 'Close Application'],
             // zoom: ['Изменить масштаб', 'Zoom'],
         },
