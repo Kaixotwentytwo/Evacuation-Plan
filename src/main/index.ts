@@ -3,8 +3,8 @@ import { Variables } from '../renderer/config/Variables';
 const IE = interfaceElements;
 
 // Hot reload
-const HotReload = true;
-if (HotReload) {
+const devFunctional = true;
+if (devFunctional) {
   try {
     require('electron-reloader')(module, {
       watchRenderer: false
@@ -222,6 +222,19 @@ function createAppMenu(language: string) {
         {
           label: IE.OSUI.window.minimize[languageIndex],
           role: 'minimize',
+        },
+
+        { // reload button
+          label: IE.OSUI.window.reload[languageIndex],
+          role: 'forceReload',
+          accelerator: 'Ctrl+R',
+          visible: devFunctional ? true : false,
+        },
+
+        { // dev tools
+          label: IE.OSUI.window.devTools[languageIndex],
+          role: 'toggleDevTools',
+          visible: devFunctional ? true : false,
         },
 
         {type: 'separator'},
