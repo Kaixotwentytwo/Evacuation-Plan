@@ -1,6 +1,6 @@
 // all the actions that happening on canvas handlers and events
 
-import { TOriginX, TOriginY, Point, FabricObject, Canvas } from "fabric";
+import { TOriginX, TOriginY, Point, FabricObject, Canvas, TMat2D } from "fabric";
 import { grid } from "./Grid";
 import { Keybind } from "./Keybinds";
 import { Variables } from "../../config/Variables";
@@ -44,6 +44,33 @@ export function deleteCanvasObject(fabricObject: any) {
         }
         canvas.requestRenderAll(); 
     }
+}
+
+//Изменение масштаба (зума) холста
+export function setCanvasZoom(canvas: Canvas, zoomLevel: number, point?: Point): void {
+    if (!canvas) return;
+
+    let finalZoom = zoomLevel;
+    const minZoom = grid.zoomSteps[0];
+    const maxZoom = grid.zoomSteps[grid.zoomSteps.length - 1];
+    
+    if (finalZoom > maxZoom) finalZoom = maxZoom;
+    if (finalZoom < minZoom) finalZoom = minZoom;
+
+    const targetPoint = point || canvas.getVpCenter();
+    canvas.zoomToPoint(targetPoint, finalZoom);
+    
+    grid.clampViewport(canvas);
+    
+    // ФИКС ОШИБКИ ТИПОВ: Явно указываем тип TMat2D для копии матрицы
+    const vpt = [...canvas.viewportTransform] as TMat2D;
+    vpt[0] = finalZoom; // Сбрасываем микро-искажения масштаба X
+    vpt[3] = finalZoom; // Сбрасываем микро-искажения масштаба Y
+    canvas.viewportTransform = vpt;
+
+    canvas.setViewportTransform(canvas.viewportTransform);
+    grid.updateSvgGrid(canvas);
+    canvas.requestRenderAll();
 }
 
 // Обновляет значение объектам канваса
@@ -233,7 +260,7 @@ canvas.on('mouse:wheel', (opt) => {
     const mousePoint = new Point(event.offsetX, event.offsetY);
     
     // Вызываем функцию с фиксированным уровнем зума
-    grid.setCanvasZoom(canvas, nextZoom, mousePoint);
+    setCanvasZoom(canvas, nextZoom, mousePoint);
 });
 
 // Изменение размера объекта с учётом установки якоря

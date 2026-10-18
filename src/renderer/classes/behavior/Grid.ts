@@ -11,8 +11,8 @@ export class grid {
 
     static gridSize_mm: number = 3;
     static gridSize_px: number = grid.mmToPx(this.gridSize_mm);
-    static snapToGrid_move: boolean = true;
-    static snapToGrid_size: boolean = true;
+    static snapToGrid_move: boolean = true; // привязка к сетке при движении
+    static snapToGrid_size: boolean = true;// привязка к сетке при изменении размеров
     static isDragging: boolean = false;
 
     // Константы ограничений размеров виртуального холста
@@ -120,69 +120,43 @@ export class grid {
     static switchSnapToGridMove() {grid.snapToGrid_move = !grid.snapToGrid_move;console.log(`Привязка к сетке: ${grid.snapToGrid_move ? 'ВКЛЮЧЕНА' : 'ВЫКЛЮЧЕНА'}`);}
     static switchSnapToGridSize() {grid.snapToGrid_size = !grid.snapToGrid_size;console.log(`Привязка к сетке: ${grid.snapToGrid_size ? 'ВКЛЮЧЕНА' : 'ВЫКЛЮЧЕНА'}`);}
 
-    //Изменение масштаба (зума) холста
-    static setCanvasZoom(canvas: Canvas, zoomLevel: number, point?: Point): void {
-        if (!canvas) return;
-    
-        let finalZoom = zoomLevel;
-        const minZoom = grid.zoomSteps[0];
-        const maxZoom = grid.zoomSteps[grid.zoomSteps.length - 1];
-        
-        if (finalZoom > maxZoom) finalZoom = maxZoom;
-        if (finalZoom < minZoom) finalZoom = minZoom;
-
-        const targetPoint = point || canvas.getVpCenter();
-        canvas.zoomToPoint(targetPoint, finalZoom);
-        
-        grid.clampViewport(canvas);
-        
-        // ФИКС ОШИБКИ ТИПОВ: Явно указываем тип TMat2D для копии матрицы
-        const vpt = [...canvas.viewportTransform] as TMat2D;
-        vpt[0] = finalZoom; // Сбрасываем микро-искажения масштаба X
-        vpt[3] = finalZoom; // Сбрасываем микро-искажения масштаба Y
-        canvas.viewportTransform = vpt;
-
-        canvas.setViewportTransform(canvas.viewportTransform);
-        grid.updateSvgGrid(canvas);
-        canvas.requestRenderAll();
-    }
-
     //Изменение физического размера сетки
-    static changeGridSize(canvas: Canvas, newSize: string, textElement: Element, lang: string): number {
-    // 1. Логика switch определения targetSizeStr (остается вашей рабочей)
-    let local_index: number;
-    let targetSizeStr: string = `${grid.gridSize_mm}mm`;
+    static changeGridSize(canvas: Canvas, newSize: string): number {
+        // 1. Логика switch определения targetSizeStr (остается вашей рабочей)
+        let local_index: number;
+        let targetSizeStr: string = `${grid.gridSize_mm}mm`;
 
-    switch (newSize) {
-        case "up":
-            local_index = grid.allowedGridSizesmm.indexOf(`${grid.gridSize_mm}mm`);
-            if (local_index + 1 < grid.allowedGridSizesmm.length) local_index += 1;
-            targetSizeStr = grid.allowedGridSizesmm[local_index];
-            break;
-        case "down":
-            local_index = grid.allowedGridSizesmm.indexOf(`${grid.gridSize_mm}mm`);
-            if (local_index - 1 >= 0) local_index -= 1;
-            targetSizeStr = grid.allowedGridSizesmm[local_index];
-            break;
-        default:
-            if (grid.allowedGridSizesmm.includes(newSize)) targetSizeStr = newSize;
-            else if (grid.allowedGridSizescm.includes(newSize)) targetSizeStr = 
-            grid.allowedGridSizesmm[grid.allowedGridSizescm.indexOf(newSize)];
-            break;
+        switch (newSize) {
+            case "up":
+                local_index = grid.allowedGridSizesmm.indexOf(`${grid.gridSize_mm}mm`);
+                if (local_index + 1 < grid.allowedGridSizesmm.length) local_index += 1;
+                targetSizeStr = grid.allowedGridSizesmm[local_index];
+                break;
+            case "down":
+                local_index = grid.allowedGridSizesmm.indexOf(`${grid.gridSize_mm}mm`);
+                if (local_index - 1 >= 0) local_index -= 1;
+                targetSizeStr = grid.allowedGridSizesmm[local_index];
+                break;
+            default:
+                if (grid.allowedGridSizesmm.includes(newSize)) targetSizeStr = newSize;
+                else if (grid.allowedGridSizescm.includes(newSize)) targetSizeStr = 
+                grid.allowedGridSizesmm[grid.allowedGridSizescm.indexOf(newSize)];
+                break;
+        }
+
+        // 2. Обновляем переменные и UI текст
+        grid.gridSize_mm = Number.parseInt(targetSizeStr);
+        canvas.fire('app:grid:changed', { gridSize: grid.gridSize_mm});
+        // if (textElement) {
+        //     if (lang === "ru") textElement.innerHTML = `${IE.gridText[0]} ${grid.gridSize_mm}мм`;
+        //     if (lang === "en") textElement.innerHTML = `${IE.gridText[1]} ${grid.gridSize_mm}mm`;
+        // }
+
+        grid.gridSize_px = grid.mmToPx(grid.gridSize_mm);
+
+        grid.updateSvgGrid(canvas);
+        return grid.gridSize_mm;
     }
-
-    // 2. Обновляем переменные и UI текст
-    grid.gridSize_mm = Number.parseInt(targetSizeStr);
-    if (textElement) {
-        if (lang === "ru") textElement.innerHTML = `${IE.gridText[0]} ${grid.gridSize_mm}мм`;
-        if (lang === "en") textElement.innerHTML = `${IE.gridText[1]} ${grid.gridSize_mm}mm`;
-    }
-
-    grid.gridSize_px = grid.mmToPx(grid.gridSize_mm);
-
-    grid.updateSvgGrid(canvas);
-    return grid.gridSize_mm;
-}
 
     // вспомогательная функция
     static updateSvgGrid(canvas: Canvas) {
